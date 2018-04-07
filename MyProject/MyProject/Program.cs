@@ -14,12 +14,12 @@ namespace MyProject
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args).Run();                       
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .Build();
+            WebHost.CreateDefaultBuilder(args)              //Create a web server
+                .UseStartup<Startup>()                      //Use the starup class to configure how the application should behave
+                .Build();                                   
     }
 }
