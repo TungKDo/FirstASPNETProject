@@ -1,4 +1,6 @@
-﻿namespace MyProject
+﻿using Microsoft.Extensions.Configuration;
+
+namespace MyProject
 {
     public interface IGreeter
     {
@@ -7,9 +9,15 @@
 
     public class Greeter : IGreeter
     {
+        private readonly IConfiguration configuration;
+
+        public Greeter(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
         public string GetMessageOfTheDay()
-        {   
-            return "Greetings";
+        {
+            return this.configuration["Greeting"];
         }
     }
 }
