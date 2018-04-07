@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace MyProject
+namespace MyProject.Services
 {
     public interface IGreeter
     {

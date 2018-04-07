@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using MyProject.Services;
 
 namespace MyProject
 {
@@ -18,6 +20,7 @@ namespace MyProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
             services.AddMvc();
         }
 
@@ -33,13 +36,19 @@ namespace MyProject
             }
             app.UseStaticFiles();
 
-            app.UseMvcWithDefaultRoute();
+            app.UseMvc(ConfigureRoutes);
 
             app.Run(async (context) =>
             {
                 var greeting = greeter.GetMessageOfTheDay();
                 await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
             });
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routerBuilder)
+        {
+            // /Home/Index
+            routerBuilder.MapRoute("Default", "{Controller=Home}/{action=Index}/{id?}");
         }
     }
 }

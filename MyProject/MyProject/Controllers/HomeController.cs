@@ -1,11 +1,22 @@
 ﻿
+using Microsoft.AspNetCore.Mvc;
+using MyProject.Model;
+using MyProject.Services;
+
 namespace MyProject.Controllers
 {
-    public class HomeController
+    public class HomeController : Controller
     {
-        public string Index()
+        private readonly IRestaurantData restaurantData;
+
+        public HomeController(IRestaurantData restaurantData)
         {
-            return "Hello from the HomeContoller";
+            this.restaurantData = restaurantData;
+        }
+        public IActionResult Index()
+        {
+            var model = restaurantData.GetAll();
+            return View(model);
         }
     }
 }
