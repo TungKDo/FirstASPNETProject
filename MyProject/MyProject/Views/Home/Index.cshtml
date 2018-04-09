@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyProject.Model.Restaurant>
+﻿@model MyProject.ViewModels.HomeIndexViewModel
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,14 +6,18 @@
 </head>
 <body>
     <table>
-        @foreach (var item in Model)
+        <h1>@Model.CurrentMessage</h1>
+        @foreach (var item in Model.Restaurants)
         {
         <tr>
             <td>@item.Id</td>
             <td>@item.Name</td>
+            <td>
+                <a asp-action ="Details" asp-route-id ="@item.Id">More</a>
+            </td>
         </tr>
         }
-
     </table>
+    <a asp-action="Create">Add Restaurant</a>
 </body>
 </html>

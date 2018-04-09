@@ -1,4 +1,4 @@
-﻿using MyProject.Model;
+﻿using MyProject.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +21,18 @@ namespace MyProject.Services
         public IEnumerable<Restaurant> GetAll()
         {
             return restaurants;
+        }
+
+        public Restaurant Get(int id )
+        {
+            return restaurants.FirstOrDefault(r => r.Id == id);
+        }
+
+        public Restaurant Add(Restaurant restaurant)
+        {
+            restaurant.Id = restaurants.Max(r => r.Id) + 1;
+                restaurants.Add(restaurant);
+            return restaurant;
         }
     }
 }
